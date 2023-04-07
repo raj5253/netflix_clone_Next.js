@@ -2,6 +2,7 @@ import Head from "next/head";
 const myfonts = require("./_fonts");
 import styles from "@/styles/Home.module.css";
 import Banner from "@/components/banner/banner";
+import NavBar from "@/components/nav/navbar";
 
 export default function Home() {
   return (
@@ -12,8 +13,9 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h1>Netflix</h1>
+      {/* <h1>Netflix</h1> */}
 
+      <NavBar username={"raghav@email.com"} />
       <Banner
         title="The Guardians"
         subTitle="The protectors of galaxy"
