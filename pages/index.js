@@ -6,6 +6,8 @@ import NavBar from "@/components/nav/navbar";
 import Card from "@/components/card/card";
 import SectionCard from "@/components/card/section-cards";
 
+import { disneyVideos } from "./videolist";
+
 export default function Home() {
   return (
     <div className={myfonts.roboto + " " + styles.container}>
@@ -24,7 +26,11 @@ export default function Home() {
       />
 
       <div className={styles.sectionWrapper}>
-        <SectionCard title="Disney" />
+        <SectionCard title="Disney" videos={disneyVideos} size="large" />
+      </div>
+
+      <div className={styles.sectionWrapper}>
+        <SectionCard title="Productive" videos={disneyVideos} size="medium" />
       </div>
 
       {/* <Card imgUrl="/static/theGuardians.jpg" size="large" /> */}
