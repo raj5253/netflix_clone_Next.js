@@ -3,6 +3,8 @@ const myfonts = require("./_fonts");
 import styles from "@/styles/Home.module.css";
 import Banner from "@/components/banner/banner";
 import NavBar from "@/components/nav/navbar";
+import Card from "@/components/card/card";
+import SectionCard from "@/components/card/section-cards";
 
 export default function Home() {
   return (
@@ -13,7 +15,6 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {/* <h1>Netflix</h1> */}
 
       <NavBar username={"raghav@email.com"} />
       <Banner
@@ -21,6 +22,12 @@ export default function Home() {
         subTitle="The protectors of galaxy"
         imgUrl="/static/theGuardians.jpg"
       />
+
+      <div className={styles.sectionWrapper}>
+        <SectionCard title="Disney" />
+      </div>
+
+      {/* <Card imgUrl="/static/theGuardians.jpg" size="large" /> */}
     </div>
   );
 }
