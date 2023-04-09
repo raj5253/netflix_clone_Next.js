@@ -3,14 +3,29 @@ const myfonts = require("./_fonts");
 import styles from "@/styles/Home.module.css";
 import Banner from "@/components/banner/banner";
 import NavBar from "@/components/nav/navbar";
-import Card from "@/components/card/card";
 import SectionCard from "@/components/card/section-cards";
 
 // import { disneyVideos } from "./videolist";
-import { getVideos } from "@/lib/videos";
+import { getVideos, getPopularVideos } from "@/lib/videos";
 
-export default function Home() {
-  const disneyVideos = getVideos();
+export async function getServerSideProps(context) {
+  const disneyVideos = await getVideos("disney%20trailer");
+  const productivityVideos = await getVideos("productive videos");
+  const travelVideos = await getVideos("travel%20blogs");
+  const popularVideos = await getPopularVideos("popular%20blogs");
+
+  return {
+    props: { disneyVideos, productivityVideos, travelVideos, popularVideos }, // will be passed to the page component as props //this is ssr. data from API is handled by server and then presented to client.
+  };
+}
+
+export default function Home({
+  disneyVideos,
+  productivityVideos,
+  travelVideos,
+  popularVideos,
+}) {
+  // const disneyVideos = getVideos();  //now take disneyVideos in props.
 
   return (
     <div className={myfonts.roboto + " " + styles.container}>
@@ -31,6 +46,19 @@ export default function Home() {
       <div className={styles.sectionWrapper}>
         <SectionCard title="Disney" videos={disneyVideos} size="large" />
       </div>
+      <div className={styles.sectionWrapper}>
+        <SectionCard title="Travel" videos={travelVideos} size="small" />
+      </div>
+      <div className={styles.sectionWrapper}>
+        <SectionCard
+          title="Productivity"
+          videos={productivityVideos}
+          size="medium"
+        />
+      </div>
+      <div className={styles.sectionWrapper}>
+        <SectionCard title="Popular" videos={popularVideos} size="small" />
+      </div>
 
       {/* <Card imgUrl="/static/theGuardians.jpg" size="large" /> */}
     </div>
@@ -38,3 +66,5 @@ export default function Home() {
 }
 
 // imgUrl="/static/theGuardians.jpg , bc the public folder will be served statically.
+
+//my youtube API key : AIzaSyCl4kfHL10llXPp0zFJXGTRmQc2MX4OsSc
