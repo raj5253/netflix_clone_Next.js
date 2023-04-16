@@ -39,6 +39,7 @@ const Card = (props) => {
           fill
           className={styles.cardImg}
           onError={handleOnError}
+          sizes="100px 100px" /*width and height is for size of image to display. sizes if for which image size to dwonload from net. */
         />
       </motion.div>
     </div> //earlier it was just div.

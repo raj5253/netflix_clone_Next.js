@@ -1,11 +1,3 @@
-.imgMotionWrapper {
-  position: relative;
-  display: inline-block; /*display: inline-block, the top and bottom margins/paddings are respected*/
-}
-
-.imgMotionWrapper:hover {
-  z-index: 99;
-}
 .smItem {
   position: relative;
   width: 300px;
@@ -29,6 +21,15 @@
   min-width: 218px;
   height: 434px;
   min-height: 434px;
+}
+
+.imgMotionWrapper {
+  position: relative;
+  display: inline-block; /*display: inline-block, the top and bottom margins/paddings are respected*/
+}
+
+.imgMotionWrapper:hover {
+  z-index: 99;
 }
 .container {
   margin-right: 0.25rem /* 4px */;

@@ -7,6 +7,7 @@ import SectionCard from "@/components/card/section-cards";
 
 // import { disneyVideos } from "./videolist";
 import { getVideos, getPopularVideos } from "@/lib/videos";
+import { magic } from "../lib/magic-client";
 
 export async function getServerSideProps(context) {
   const disneyVideos = await getVideos("disney%20trailer");
@@ -25,7 +26,7 @@ export default function Home({
   travelVideos,
   popularVideos,
 }) {
-  // const disneyVideos = getVideos();  //now take disneyVideos in props.
+  // console.log({ magic });
 
   return (
     <div className={myfonts.roboto + " " + styles.container}>

@@ -2,13 +2,30 @@ import styles from "./navbar.module.css";
 
 import { useRouter } from "next/router"; //routing part was done after return of this component was done.
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
-
-const NavBar = (props) => {
-  const { username } = props;
+import { magic } from "@/lib/magic-client";
+// import { handleClientScriptLoad } from "next/script";
+const NavBar = () => {
+  const [username, setUsername] = useState("");
+  // const { username } = props;
 
   const router = useRouter();
+
+  useEffect(() => {
+    async function getUsername() {
+      try {
+        const { email } = await magic.user.getMetadata();
+        if (email) {
+          console.log(email);
+          setUsername(email);
+        }
+      } catch (error) {
+        console.log("Error retrieving email:", error);
+      }
+    }
+    getUsername();
+  }, []);
 
   const handleOnClickHome = (e) => {
     e.preventDefault();
@@ -24,6 +41,19 @@ const NavBar = (props) => {
   const handleShowDropdown = (e) => {
     e.preventDefault();
     setShowDropdown(!showDropdown); //simple react logic. no hooks
+  };
+
+  const handleSignOut = async (e) => {
+    e.preventDefault();
+
+    try {
+      await magic.user.logout();
+      console.log(await magic.user.isLoggedIn()); // => `false`
+      router.push("/login");
+    } catch (error) {
+      console.log("Couldnt signout error", error);
+      router.push("/login");
+    }
   };
 
   return (
@@ -63,9 +93,11 @@ const NavBar = (props) => {
             {showDropdown && (
               <div className={styles.navDropdown}>
                 <div>
-                  <Link href="/login" legacyBehavior>
-                    <a className={styles.linkName}>Sign out</a>
-                  </Link>
+                  {/* <Link href="/login" legacyBehavior> */}
+                  <a className={styles.linkName} onClick={handleSignOut}>
+                    Sign out
+                  </a>
+                  {/* </Link> */}
                   <div className={styles.lineWrapper}></div>
                 </div>
               </div>
