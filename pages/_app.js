@@ -11,16 +11,16 @@ export default function App({ Component, pageProps }) {
 
   useEffect(() => {
     const handleLoggedIn = async () => {
-      const isLoggedIn = await magic.user.isLoggedIn();
-      if (isLoggedIn) {
-        // route to /
-        // setIsLoading(false);
-        router.push("/");
-      } else {
-        // route to /login
-        // setIsLoading(false);
-        router.push("/login");
-      }
+      // const isLoggedIn = await magic.user.isLoggedIn();
+      //   if (isLoggedIn) {
+      //     router.push("/"); // route to /
+      //   } else {
+      // router.push("/login"); //route to /login
+      //   }
+
+      // // console.log(router.pathname);
+      setIsLoading(false);
+      // // router.push(router.asPath);
     };
     handleLoggedIn();
   }, []);

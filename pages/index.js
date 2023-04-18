@@ -42,6 +42,7 @@ export default function Home({
         title="The Guardians"
         subTitle="The protectors of galaxy"
         imgUrl="/static/theGuardians.jpg"
+        videoId="kZropz0-aDk"
       />
 
       <div className={styles.sectionWrapper}>
