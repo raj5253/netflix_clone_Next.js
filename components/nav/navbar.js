@@ -15,7 +15,10 @@ const NavBar = () => {
   useEffect(() => {
     async function getUsername() {
       try {
-        const { email } = await magic.user.getMetadata();
+        const { issuer, email } = await magic.user.getMetadata();
+        const didToken = await magic.user.getIdToken(); //for serverless func -api  to connet hasura to database
+        console.log({ didToken });
+
         if (email) {
           console.log(email);
           setUsername(email);

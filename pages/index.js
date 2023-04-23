@@ -7,13 +7,13 @@ import SectionCard from "@/components/card/section-cards";
 
 // import { disneyVideos } from "./videolist";
 import { getVideos, getPopularVideos } from "@/lib/videos";
-import { magic } from "../lib/magic-client";
+// import { startFetchMyQuery } from "../lib/db/hasura";
 
 export async function getServerSideProps(context) {
   const disneyVideos = await getVideos("disney%20trailer");
   const productivityVideos = await getVideos("productive videos");
   const travelVideos = await getVideos("travel%20blogs");
-  const popularVideos = await getPopularVideos("popular%20blogs");
+  const popularVideos = await getPopularVideos();
 
   return {
     props: { disneyVideos, productivityVideos, travelVideos, popularVideos }, // will be passed to the page component as props //this is ssr. data from API is handled by server and then presented to client.
@@ -28,6 +28,7 @@ export default function Home({
 }) {
   // console.log({ magic });
 
+  // startFetchMyQuery(); //not needed now
   return (
     <div className={myfonts.roboto + " " + styles.container}>
       <Head>
