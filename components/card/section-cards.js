@@ -2,19 +2,27 @@ import Link from "next/link";
 import Card from "./card";
 
 import styles from "./section-card.module.css";
+import classNames from "classnames";
 
 const SectionCard = (props) => {
-  const { title, videos = [], size } = props;
+  const { title, videos = [], size, shouldWrap = false, shouldScale } = props;
   return (
     <section className={styles.container}>
       <h2 className={styles.title}>{title}</h2>
-      <div className={styles.cardWrapper}>
+      <div
+        className={classNames(styles.cardWrapper, shouldWrap && styles.wrap)}
+      >
         {videos.map((video, id) => {
           // console.log("video id", video.id);
 
           return (
             <Link href={`/video/${video.id}`} key={video.id}>
-              <Card id={id} size={size} imgUrl={video["imgUrl"]} />;
+              <Card
+                id={id}
+                size={size}
+                imgUrl={video["imgUrl"]}
+                shouldScale={shouldScale}
+              />
             </Link>
           );
         })}

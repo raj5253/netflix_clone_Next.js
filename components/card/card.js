@@ -9,6 +9,7 @@ const Card = (props) => {
     imgUrl = "https://images.unsplash.com/photo-1534961165765-5c9795af911b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=407&q=80",
     size = medium,
     id,
+    shouldScale = true,
   } = props; //destructuring //default value to medium
 
   const [imgSrc, setImgSrc] = useState(imgUrl);
@@ -27,11 +28,13 @@ const Card = (props) => {
   };
 
   const scale = id === 0 ? { scaleY: 1.1 } : { scale: 1.1 }; //first card should expand only in y direction
+  const shouldHover = shouldScale && { whileHover: { ...scale } };
   return (
     <div className={styles.container}>
       <motion.div
         className={classname(classMap[size], styles.imgMotionWrapper)}
-        whileHover={{ ...scale }}
+        // whileHover={{ ...scale }}
+        {...shouldHover}
       >
         <Image
           src={imgSrc}

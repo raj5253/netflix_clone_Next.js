@@ -5,10 +5,9 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { magic } from "@/lib/magic-client";
-// import { handleClientScriptLoad } from "next/script";
 const NavBar = () => {
   const [username, setUsername] = useState("");
-  // const { username } = props;
+  const [didToken, setDidToken] = useState("");
 
   const router = useRouter();
 
@@ -50,19 +49,32 @@ const NavBar = () => {
     e.preventDefault();
 
     try {
-      await magic.user.logout();
-      console.log(await magic.user.isLoggedIn()); // => `false`
-      router.push("/login");
+      const response = await fetch("/api/logout", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${didToken}`,
+          "Content-Type": "application/json",
+        },
+      });
+      const res = await response.json();
     } catch (error) {
-      console.log("Couldnt signout error", error);
+      console.error("Error logging out", error);
       router.push("/login");
     }
+    // try {
+    //   await magic.user.logout();
+    //   console.log(await magic.user.isLoggedIn()); // => `false`
+    //   router.push("/login");
+    // } catch (error) {
+    //   console.log("Couldnt signout error", error);
+    //   router.push("/login");
+    // }s
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
-        <a href="/" className={styles.logoLink}>
+        <Link href="/" className={styles.logoLink}>
           <div className={styles.logoWrapper}>
             <Image
               src="/static/netflix.svg"
@@ -71,7 +83,7 @@ const NavBar = () => {
               height={36}
             />
           </div>
-        </a>
+        </Link>
         <ul className={styles.navItems}>
           <li className={styles.navItem} onClick={handleOnClickHome}>
             Home
@@ -88,7 +100,7 @@ const NavBar = () => {
               {/* expand for more icons */}
               <Image
                 src="/static/icon_expandbelow.svg"
-                alt="expand icon"
+                alt="expand dropdown"
                 width={24}
                 height={24}
               />

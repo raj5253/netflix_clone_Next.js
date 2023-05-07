@@ -11,13 +11,13 @@ export default function App({ Component, pageProps }) {
 
   useEffect(() => {
     const handleLoggedIn = async () => {
-      // const isLoggedIn = await magic.user.isLoggedIn();
-      //   if (isLoggedIn) {
-      //     router.push("/"); // route to /
-      //   } else {
-      // router.push("/login"); //route to /login
-      //   }
-      // // console.log(router.pathname);
+      const isLoggedIn = await magic.user.isLoggedIn();
+      if (isLoggedIn) {
+        router.push("/"); // route to /
+      } else {
+        router.push("/login"); //route to /login
+      }
+      // console.log(router.pathname); //1** see below
       setIsLoading(false);
       // // router.push(router.asPath);
     };
@@ -45,3 +45,5 @@ export default function App({ Component, pageProps }) {
 //
 // Loading page should be visible before both magic has fetched the data , and the routing for typed url has completed.
 // Once urlChnage is completed then only routing should be set false.
+
+//1** earlier the lines above inside handleLoggedIn were commneted. After full completion of prject they are uncommneted

@@ -8,6 +8,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { magic } from "../lib/magic-client";
 import { useEffect } from "react";
+import { headers } from "@/next.config";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -42,29 +43,46 @@ const Login = () => {
     e.preventDefault();
 
     if (email) {
-      if (email === "satyamraj2358@gmail.com") {
-        //  log in a user by their email
-        try {
-          setIsLoading(true);
+      // if (email === "satyamraj2358@gmail.com") {
+      //  log in a user by their email
+      try {
+        setIsLoading(true);
 
-          const didToken = await magic.auth.loginWithMagicLink({
-            email,
+        const didToken = await magic.auth.loginWithMagicLink({
+          email,
+        });
+        console.log({ didToken });
+        if (didToken) {
+          // setIsLoading(false);  //isme bahut doubt hai, uncomment  kar dena isko yad se
+
+          const response = await fetch("/api/login", {
+            // this invokes the api/login , which was earlier invoked by POSTMAN( postman also  had to send Bearer token)
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${didToken}`,
+              "Content-Type": "application/json",
+            },
           });
-          console.log({ didToken });
-          if (didToken) {
-            setIsLoading(false);
+
+          const loggedInResponse = await response.json();
+          if (loggedInResponse.done) {
             router.push("/");
+            // console.log({ loggedInResponse });
+          } else {
+            setIsLoading(false);
+            setUserMsg(" error in response from /api/login while logging in");
           }
-        } catch (error) {
-          // Handle errors if required!
-          setIsLoading(false);
-          console.error("Something went wrong logging in", error);
         }
-        // router.push("/");
-      } else {
+      } catch (error) {
+        // Handle errors if required!
         setIsLoading(false);
-        setUserMsg("email mismatch error");
+        console.error("Something went wrong logging in", error);
       }
+      //// router.push("/");
+      // } else {
+      //   setIsLoading(false);
+      //   setUserMsg("email mismatch error");
+      // }
     } else {
       // show user message
       setUserMsg("Enter a valid email address");
