@@ -13,8 +13,6 @@ const SectionCard = (props) => {
         className={classNames(styles.cardWrapper, shouldWrap && styles.wrap)}
       >
         {videos.map((video, id) => {
-          // console.log("video id", video.id);
-
           return (
             <Link href={`/video/${video.id}`} key={video.id}>
               <Card

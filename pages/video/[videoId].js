@@ -36,8 +36,6 @@ export async function getStaticPaths() {
 }
 
 const Video = ({ video }) => {
-  // console.log("video as arg in [VideoId].js :", video); //object which stores video info. {video} comes from getStaticPath() which inturn calls getStaticProps() which intrun calls fucntion from lb/video.js which return object containgin video info.
-
   const router = useRouter();
   const videoId = router.query.videoId;
 
@@ -61,7 +59,6 @@ const Video = ({ video }) => {
         },
       });
       const data = await response.json();
-      console.log("data", { data });
       if (data.length > 0) {
         const favourited = data[0].favourited;
         if (favourited == 1) {
@@ -94,7 +91,6 @@ const Video = ({ video }) => {
 
     const favourited = val ? 1 : 0;
     const response = await runRatingServive(favourited);
-    console.log("data", await response.json());
   };
 
   const handleToggleDislike = async () => {
@@ -104,8 +100,6 @@ const Video = ({ video }) => {
 
     const favourited = val ? 0 : 1;
     const response = await runRatingServive(favourited);
-
-    console.log("data", await response.json());
   };
 
   return (

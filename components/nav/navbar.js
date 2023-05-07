@@ -16,15 +16,10 @@ const NavBar = () => {
       try {
         const { issuer, email } = await magic.user.getMetadata();
         const didToken = await magic.user.getIdToken(); //for serverless func -api  to connet hasura to database
-        console.log({ didToken });
 
         if (email) {
-          console.log(email);
-          setUsername(email);
         }
-      } catch (error) {
-        console.log("Error retrieving email:", error);
-      }
+      } catch (error) {}
     }
     getUsername();
   }, []);
@@ -61,14 +56,6 @@ const NavBar = () => {
       console.error("Error logging out", error);
       router.push("/login");
     }
-    // try {
-    //   await magic.user.logout();
-    //   console.log(await magic.user.isLoggedIn()); // => `false`
-    //   router.push("/login");
-    // } catch (error) {
-    //   console.log("Couldnt signout error", error);
-    //   router.push("/login");
-    // }s
   };
 
   return (

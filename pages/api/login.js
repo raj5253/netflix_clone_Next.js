@@ -8,12 +8,9 @@ export default async function login(req, res) {
     try {
       const auth = req.headers.authorization; //pages/login.js is sending post request//earlier postman was for this.
       const didToken = auth ? auth.substr(7) : "";
-      // console.log(auth);
-      // console.log({ didToken });
 
       // invoke magic server-side(admin)
       const metadata = await magicAdmin.users.getMetadataByToken(didToken);
-      // console.log({ metadata });
 
       //   create jwt token
       const token = jwt.sign(
@@ -30,7 +27,6 @@ export default async function login(req, res) {
         },
         process.env.JWT_SECRET
       );
-      console.log({ "jwt token ": token });
 
       // CHECK IF USER EXISTS
       const isNewUserQuery = await isNewUser(token, metadata.issuer); //earlier we were copy pasting thetokens, now passing the tokens by passing tokens as args of fucn encapsulating queryies
@@ -39,7 +35,6 @@ export default async function login(req, res) {
       setTokenCookie(token, res);
       res.send({ done: true });
     } catch (error) {
-      console.log("something went wrong while logging you in ::" + error);
       res.status(500).send({ done: false });
     }
   } else {

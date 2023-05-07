@@ -33,13 +33,11 @@ const Login = () => {
   const handleOnChangeEmail = (e) => {
     // e.preventDefault();
     setUserMsg("");
-    // console.log(e.target.value); //e is an object.
-    const email = e.target.value;
+    const email = e.target.value; //e is an object.
     setEmail(email);
   };
 
   const handleLoginWithEmail = async (e) => {
-    console.log("hi button");
     e.preventDefault();
 
     if (email) {
@@ -51,7 +49,6 @@ const Login = () => {
         const didToken = await magic.auth.loginWithMagicLink({
           email,
         });
-        console.log({ didToken });
         if (didToken) {
           // setIsLoading(false);  //isme bahut doubt hai, uncomment  kar dena isko yad se
 
@@ -67,7 +64,6 @@ const Login = () => {
           const loggedInResponse = await response.json();
           if (loggedInResponse.done) {
             router.push("/");
-            // console.log({ loggedInResponse });
           } else {
             setIsLoading(false);
             setUserMsg(" error in response from /api/login while logging in");

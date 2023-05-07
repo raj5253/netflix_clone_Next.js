@@ -60,11 +60,3 @@ export default async function stats(req, res) {
     res.status(500).send({ done: false, error: error?.message });
   }
 }
-
-// const userId = "did:ethr:0x46A78b352F31F2966Fb08a6C483a5A3C11a276B5";
-// console.log({ decoded });
-// const { videoId, favourited, watched = true } = req.body; //postman will pass these in body-raw-json
-
-// during development phase, postman send post req to this /api/stats
-
-// const videoId = req.query.videoId; //postman will pass videoId key in params of req. for trial

@@ -17,7 +17,7 @@ export default async function logout(req, res) {
 
     //remove user from magic
     try {
-      await magicAdmin.users.logoutByIssuer(userId); //userId is the issuer
+      await magicAdmin.users.logoutByIssuer(userId); //userId is issuer
     } catch (error) {
       console.log("User's session with Magic already expired");
       console.error("Error occurred while logging out magic user", error);
@@ -27,7 +27,6 @@ export default async function logout(req, res) {
     res.writeHead(302, { Location: "/login" });
     res.end();
   } catch (error) {
-    console.log({ error });
     res.status(401).json({ message: "user is not logged in" });
     console.error("error in logout ", error);
   }

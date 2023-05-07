@@ -17,7 +17,7 @@ export default function App({ Component, pageProps }) {
       } else {
         router.push("/login"); //route to /login
       }
-      // console.log(router.pathname); //1** see below
+      //1** see below
       setIsLoading(false);
       // // router.push(router.asPath);
     };

@@ -54,8 +54,6 @@ export default function Home({
   popularVideos,
   watchItAgainVideos,
 }) {
-  // console.log({ magic });
-
   // startFetchMyQuery(); //not needed now
   return (
     <div className={myfonts.roboto + " " + styles.container}>
