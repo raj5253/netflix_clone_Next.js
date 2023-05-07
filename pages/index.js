@@ -1,11 +1,10 @@
 import Head from "next/head";
-const myfonts = require("./_fonts");
+const myfonts = require("../utils/_fonts");
 import styles from "@/styles/Home.module.css";
 import Banner from "@/components/banner/banner";
 import NavBar from "@/components/nav/navbar";
 import SectionCard from "@/components/card/section-cards";
 
-// import { disneyVideos } from "./videolist";
 import {
   getVideos,
   getPopularVideos,
@@ -13,12 +12,9 @@ import {
 } from "@/lib/videos";
 import { verifyToken } from "@/lib/utils";
 import useRedirectUser from "@/utils/redirectUsers";
-// import { startFetchMyQuery } from "../lib/db/hasura";
 
 export async function getServerSideProps(context) {
-  // const userId = "did:ethr:0x46A78b352F31F2966Fb08a6C483a5A3C11a276B5";
-  // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3N1ZXIiOiJkaWQ6ZXRocjoweDQ2QTc4YjM1MkYzMUYyOTY2RmIwOGE2QzQ4M2E1QTNDMTFhMjc2QjUiLCJwdWJsaWNBZGRyZXNzIjoiMHg0NkE3OGIzNTJGMzFGMjk2NkZiMDhhNkM0ODNhNUEzQzExYTI3NkI1IiwiZW1haWwiOiJzYXR5YW1yYWoyMzU4QGdtYWlsLmNvbSIsIm9hdXRoUHJvdmlkZXIiOm51bGwsInBob25lTnVtYmVyIjpudWxsLCJ3YWxsZXRzIjpbXSwiaWF0IjoxNjgzMjc1MjI5LCJleHAiOjE2ODM4ODAwMjksImh0dHBzOi8vaGFzdXJhLmlvL2p3dC9jbGFpbXMiOnsieC1oYXN1cmEtYWxsb3dlZC1yb2xlcyI6WyJ1c2VyIiwiYWRtaW4iXSwieC1oYXN1cmEtZGVmYXVsdC1yb2xlIjoidXNlciIsIngtaGFzdXJhLXVzZXItaWQiOiJkaWQ6ZXRocjoweDQ2QTc4YjM1MkYzMUYyOTY2RmIwOGE2QzQ4M2E1QTNDMTFhMjc2QjUifX0.VYaTOAI2uIkbm45C2RvZDdF31v_eTV5wmIdvY5mOVPQ";
-
+  // extract userId and jwt token from context.req.cookies.token
   const { userId, token } = await useRedirectUser(context);
   if (!userId) {
     return {
