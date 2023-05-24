@@ -18,6 +18,7 @@ const NavBar = () => {
         const didToken = await magic.user.getIdToken(); //for serverless func -api  to connet hasura to database
 
         if (email) {
+          setUsername(email);
         }
       } catch (error) {}
     }
